@@ -89,7 +89,10 @@ class Store {
 
         if (item.code === code) {
           item.selected = !item.selected;
-          item.counter++
+          if(item.selected){
+            item.counter++                      // ДЗ 3 сбрасываем  колличество выделений
+          }
+
         }else {                                    // ДЗ 1 сбрасываем выделение у других
           item.selected=false
         }
