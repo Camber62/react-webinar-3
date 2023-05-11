@@ -38,15 +38,34 @@ class Store {
     for (const listener of this.listeners) listener();
   }
 
+
+
+
+
+  unitGenerCode = () => {
+    let max = 1
+    for (let i = 0; i < this.state.list.length; i++) {     // ДЗ 2 создание уникального coda
+      if ((this.state.list)[i].code > max) {
+        max = (this.state.list)[i].code
+      }
+    }
+    return max + 1
+  }
+
   /**
    * Добавление новой записи
    */
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: this.unitGenerCode(), title: 'Новая запись'}]
     })
   };
+
+
+
+
+
 
   /**
    * Удаление записи по коду
@@ -67,12 +86,17 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+
         if (item.code === code) {
           item.selected = !item.selected;
+          item.counter++
+        }else {                                    // ДЗ 1 сбрасываем выделение у других
+          item.selected=false
         }
         return item;
       })
     })
+        console.log(code)
   }
 }
 
